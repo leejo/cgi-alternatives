@@ -1,0 +1,11 @@
+NAME
+    CGI::Alternatives - documentation for alternative solutions to CGI.pm
+
+VERSION
+    0.01
+
+DESCRIPTION
+PSGI/Plack
+Mojolicious
+Dancer
+Catalyst

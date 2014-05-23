@@ -1,0 +1,14 @@
+/META.yml
+/MYMETA.*
+/blib/
+/inc/
+/pm_to_blib
+/MANIFEST
+/MANIFEST.bak
+/Makefile
+/Makefile.old
+*.old
+*.swp
+~$
+/CGI-Alternatives*tar.gz
+.DS_Store
