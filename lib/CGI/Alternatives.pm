@@ -3,7 +3,7 @@ package CGI::Alternatives;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 1;
 
@@ -13,7 +13,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 =head1 VERSION
 
-0.01
+0.03
 
 =head1 DESCRIPTION
 

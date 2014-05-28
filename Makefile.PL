@@ -22,7 +22,7 @@ WriteMakefile(
     resources => {
       license    => 'http://dev.perl.org/licenses/',
       homepage   => 'https://metacpan.org/module/CGI::Alternatives',
-      bugtracker => 'https://github.com/leejo/cgi-alterntatives/issues',
+      bugtracker => 'https://github.com/leejo/cgi-alternatives/issues',
       repository => 'https://github.com/leejo/cgi-alternatives'
     },
   },
