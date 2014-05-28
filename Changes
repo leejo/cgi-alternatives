@@ -1,4 +1,7 @@
 Revision history for CGI::Alternatives
 
-0.01	Ven 23 mai 2014 19:49:01 CEST
-	* First release, let's make a start on this
+0.02	May 28, 2014
+	- Correct this Changes file
+
+0.01	May 28, 2014
+	- First release, let's make a start on this
