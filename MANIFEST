@@ -1,0 +1,6 @@
+Changes
+lib/CGI/Alternatives.pm
+Makefile.PL
+MANIFEST
+README
+t/001_compiles_pod.t
