@@ -2,5 +2,5 @@ Changes
 lib/CGI/Alternatives.pm
 Makefile.PL
 MANIFEST
-README
+README.md
 t/001_compiles_pod.t
