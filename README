@@ -31,13 +31,15 @@ BUT WHY?
     implementations." Again, not true and the following examples will show
     that.
 
-PSGI
-Plack
-Mojolicious
-Dancer
-Catalyst
-Others
+[PSGI](metacpan.org/pod/PSGI)
+[Plack](metacpan.org/pod/Plack)
+[Mojolicious](metacpan.org/pod/Mojolicious)
+[Dancer](metacpan.org/pod/Dancer)
+[Dancer2](metacpan.org/pod/Dancer2)
+[Catalyst](metacpan.org/pod/Catalyst)
+[Others](metacpan.org/search?q=web+frameworks)
 Dependency Handling
+
 AUTHOR INFORMATION
     Lee Johnson - `leejo@cpan.org'
 
