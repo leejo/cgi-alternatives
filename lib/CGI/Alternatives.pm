@@ -44,15 +44,27 @@ Again, not true and the following examples will show that.
 
 =head1 PSGI
 
+L<http://metacpan.org/pod/PSGI>
+
 =head1 Plack
+
+L<http://metacpan.org/pod/Plack>
 
 =head1 Mojolicious
 
+L<http://metacpan.org/pod/Mojolicious>
+
 =head1 Dancer
+
+L<http://metacpan.org/pod/Dancer>
 
 =head1 Catalyst
 
+L<http://metacpan.org/pod/Catalyst>
+
 =head1 Others
+
+L<https://metacpan.org/search?q=web+frameworks>
 
 =head1 Dependency Handling
 
