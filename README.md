@@ -52,9 +52,59 @@ This is the base script that will be re-implemented using the other frameworks
 
 There are two versions - one that uses the HTML generation functions of CGI.pm
 and one that uses Template Toolkit. This is where we get into the first issue
-with CGI.pm - poor separation of concerns.
+with CGI.pm - poor separation of concerns. CGI.pm (and cgi-lib.pl) existed years
+before template engines were available in perl. As a consequence, to make the
+generation of html easier, functions were added to output HTML direct from
+scripts themselves. In doing this you immediately increase the maintenance
+burden as any changes required to the HTML need to be done within the scripts.
+You can't just hand a template to the web-designers and allow them to work their
+magic. Don't mix the business logic and the presentation layer. Just don't.
 
 ## CGI.pm With Inline HTML Functions
+
+A simple example with form using the html generation functions of CGI.pm
+
+    #!/usr/bin/env perl
+
+    # most CGI.pm scripts i encounter don't use script or warnings.
+    # please don't omit these, you are asking for a world of pain
+    # somewhere down the line if you choose to develop sans strict
+    use strict;
+    use warnings;
+
+    use CGI qw/ -utf8 /; 
+
+    my $cgi  = CGI->new;
+    my $res  = $cgi->param( 'user_input' );
+    my $out  = $cgi->header(
+        -type    => 'text/html',
+        -charset => 'utf-8',
+    );
+
+    # html output functions. at best this is a lesson in obfuscation
+    # at worst it is an unmaintainable nightmare (and i'm using
+    # relatively clean perl code and a very very simple example here)
+    $out .= $cgi->start_html( "An Example Form" );
+
+    $out .= $cgi->start_form(
+        -method  => "post",
+        -action  => "/example_form",
+    );
+
+    $out .= $cgi->p(
+        "Say something: ",
+        $cgi->textfield( -name => 'user_input' ),
+        $cgi->br,
+        ( $res ? ( $cgi->br, "You wrote: $res" ) : () ),
+        $cgi->br,
+        $cgi->br,
+        $cgi->submit,
+    );
+
+    $out .= $cgi->end_form;
+    $out .= $cgi->end_html;
+
+    print $out;
 
 ## CGI.pm Using Template Toolkit
 
@@ -132,13 +182,63 @@ scripts above would have to be called example\_form or the webserver would
 have to be setup to redirect routes to /example\_form to whatever the cgi
 script is called (cgi.pl and cgi\_tt.pl in the examples/ directory)
 
-# PSGI
+Note that I have used [Template::Toolkit](https://metacpan.org/pod/Template::Toolkit) here, another excellent template
+engine is [Text::Xslate](https://metacpan.org/pod/Text::Xslate). I would **avoid** [Mason](https://metacpan.org/pod/Mason)(2) and [HTML::Template](https://metacpan.org/pod/HTML::Template).
+Please don't write your own template engine.
+
+# PSGI/Plack
 
 [http://metacpan.org/pod/PSGI](http://metacpan.org/pod/PSGI)
 
-# Plack
-
 [http://metacpan.org/pod/Plack](http://metacpan.org/pod/Plack)
+
+[http://plackperl.org/](http://plackperl.org/)
+
+PSGI is an interface between Perl web applications and web servers, and Plack
+is a Perl module and toolkit that contains PSGI middleware, helpers and
+adapters to web servers.
+
+Plack is a collection of building blocks to create web applications, ranging from
+quick & easy scripts, to the foundations of building larger frameworks.
+
+    #!/usr/bin/env perl
+
+    use strict;
+    use warnings;
+    use feature qw/ state /;
+
+    use FindBin qw/ $Bin /;
+    use Template;
+    use Plack::Request;
+    use Plack::Response;
+
+    my $app = sub {
+        my $req = Plack::Request->new( shift );
+        my $res = Plack::Response->new( 200 );
+
+        state $tt  = Template->new({
+            INCLUDE_PATH => "$Bin/templates",
+        });
+
+        my $out;
+
+        $tt->process(
+            "example_form.html.tt",
+            {
+                result => $req->parameters->{'user_input'},
+            },
+            \$out,
+        ) or die $tt->error;
+
+        $res->body( $out );
+        $res->finalize;
+    };
+
+To run this script:
+
+    plackup examples/plack_psgi.pl
+
+That makes the script (the "app") available at http://\*:5000
 
 # Mojolicious
 
