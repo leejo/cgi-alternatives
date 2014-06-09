@@ -1,7 +1,9 @@
 Revision history for CGI::Alternatives
 
-0.03 2014-06-09
+0.04 2014-06-09
     - Completed documentation on alternatives with examples
+
+0.03 2014-06-09
     - Links to alternatives (thanks: craig.treptow@gmail.com)
 
 0.02 2014-05-28
