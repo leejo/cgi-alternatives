@@ -4,15 +4,12 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 # VERSION
 
-0.03
+0.04
 
 # DESCRIPTION
 
 This module doesn't do anything, it exists solely to document alternatives
-to the [CGI](https://metacpan.org/pod/CGI).pm module. This documentation is a work in progress, an example
-script will be shown in raw CGI.pm and then the equivalent implementation
-for each alternative will be shown. Resources to further information and
-documentation will also be included.
+to the [CGI](https://metacpan.org/pod/CGI).pm module.
 
 # BUT WHY?
 
@@ -39,12 +36,20 @@ All of the following are functionally identical. They display a very simple
 form with one text input box. When the form is submit it is redisplayed with
 the original input displayed below the input box.
 
-All the examples are commented, however i do not explain the details of the
-frameworks - i would be duplicating the framework's docs if i did that, so
-have a look at the links provided and investigate further.
+This example may be trivial, but that is the point. The frameworks shown here
+feature a great deal of functionality for dealing with other parts of your
+application and dealing with that in a maintainable way, with full separation
+of concerns and easy testing.
+
+All the examples are commented, where i feel it is necessary to highlight the
+differences between the implemntations, however i do not explain the details
+of the frameworks - i would be duplicating the framework's docs if i did that,
+so have a look at the links provided and investigate further.
 
 All of the examples in this documentation can be found within the examples/
-directory within this distribution.
+directory within this distribution. If you want to run them you will need to
+install the necessary CPAN modules, these are not included as dependencies in
+this distribution.
 
 # RAW CGI.pm EXAMPLES
 
@@ -110,7 +115,7 @@ A simple example with form using the html generation functions of CGI.pm
 
 I'm including this example to show that it is easy to move the html
 generation out of the raw CGI.pm script and into a template for better
-separation of concerns
+separation of concerns.
 
     #!/usr/bin/env perl
 
@@ -157,7 +162,7 @@ separation of concerns
 Here's a key point - this template file will be re-used by **all** the following
 framework examples with absolutely no modifications. We can move between the
 frameworks without having to do any porting of the HTML because it has been
-divorced from the controller code
+divorced from the controller code. What did i say? Separation of concerns: win.
 
     <html>
         <meta charset="utf-8"> 
@@ -188,9 +193,9 @@ Please don't write your own template engine.
 
 # PSGI/Plack
 
-[http://metacpan.org/pod/PSGI](http://metacpan.org/pod/PSGI)
+[http://metacpan.org/release/PSGI](http://metacpan.org/release/PSGI)
 
-[http://metacpan.org/pod/Plack](http://metacpan.org/pod/Plack)
+[http://metacpan.org/release/Plack](http://metacpan.org/release/Plack)
 
 [http://plackperl.org/](http://plackperl.org/)
 
@@ -242,9 +247,11 @@ That makes the script (the "app") available at http://\*:5000
 
 # Mojolicious
 
-[http://metacpan.org/pod/Mojolicious](http://metacpan.org/pod/Mojolicious)
+CPAN: [http://metacpan.org/release/Mojolicious](http://metacpan.org/release/Mojolicious)
 
-[http://mojolicio.us/](http://mojolicio.us/)
+Repo: [http://github.com/kraih/mojo](http://github.com/kraih/mojo)
+
+Home: [http://mojolicio.us/](http://mojolicio.us/)
 
 Mojolicious is a feature rich modern web framework, with no none-core
 dependencies. It is incredibly easy to get a web app up and running with
@@ -277,8 +284,7 @@ To run this script (and all the following Mojolicious examples):
 
     morbo examples/mojolicious_lite.pl
 
-That makes the routes available at http://\*:3000 - you don't need another
-weberver
+That makes the page available at http://\*:3000/example\_form
 
 ## Mojolicious Full App
 
@@ -326,7 +332,9 @@ weberver
 
 This is a "full fat" version of the app in Mojolicious, as stated in the
 comments you would split the packages out into separate files in the real
-thing
+thing. Run using:
+
+    morbo examples/mojolicious.pl
 
 ## Mojolicious Lite App Wrapping The CGI.pm Script(s)
 
@@ -346,27 +354,135 @@ Mojolicious and then add new routes to the Mojolicious app - this gives us a
 migration path. There is one thing to consider - if you are serving your cgi
 scripts using a persistent webserver (e.g. mod\_perl) then you will see a hit
 in the performance because Mojolicious::Plugin::CGI will exec the cgi script
-for each request.
+for each request. Run using:
 
-# Dancer
+    morbo examples/mojolicious_lite_plugin_cgi.pl
 
-[http://metacpan.org/pod/Dancer](http://metacpan.org/pod/Dancer)
+# Dancer2
+
+CPAN: [https://metacpan.org/release/Dancer2](https://metacpan.org/release/Dancer2)
+
+Repo: [https://github.com/PerlDancer/Dancer2](https://github.com/PerlDancer/Dancer2)
+
+Home: [http://perldancer.org/](http://perldancer.org/)
+
+[Dancer2](https://metacpan.org/pod/Dancer2) is a rewrite of [Dancer](https://metacpan.org/pod/Dancer), they share a lot in common but
+i would recommend [Dancer2](https://metacpan.org/pod/Dancer2) as it solved some issues with [Dancer](https://metacpan.org/pod/Dancer)
+
+    #!/usr/bin/env perl
+
+    # automatically enables strict and warnings
+    use Dancer2;
+     
+    any [ 'get','post' ] => '/example_form' => sub {
+
+        template 'example_form.html.tt', {
+            'result' => params->{'user_input'}
+        };
+    };
+     
+    start;
+
+Honestly that's just beautiful. The above example can be run with:
+
+    perl examples/dancer2.pl
+
+That makes the page available at http://\*:3000/example\_form
 
 # Catalyst
 
-[http://metacpan.org/pod/Catalyst](http://metacpan.org/pod/Catalyst)
+CPAN: [http://metacpan.org/release/Catalyst](http://metacpan.org/release/Catalyst)
+
+Repo: [git://git.shadowcat.co.uk/catagits/Catalyst-Runtime.git](git://git.shadowcat.co.uk/catagits/Catalyst-Runtime.git)
+
+Home: [http://www.catalystframework.org/](http://www.catalystframework.org/)
+
+Catalyst is one of the older web frameworks in perl, but is still very popular,
+actively maintained, and feature rich. It has a heavier dependency list than
+the above frameworks, but this should not be taken as a negative point.
+
+Catalyst is slightly more involved in that you have to set up your entire app
+as the first step, this involved running:
+
+    catalyst.pl example_form
+
+Which will create the various directories and scripts for building/running your
+app. You then need to add the necessary controllers, views, and templates. This
+has all been done automatically through the use of the helper scripts that come
+with Catalyst. The important bit, the actual example code, is just this in the
+examples/example\_form/lib/example\_form/Controller/Root.pm controller:
+
+    package example_form::Controller::Root;
+
+    # automatically enables strict and warnings
+    use Moose;
+    use namespace::autoclean;
+
+    BEGIN { extends 'Catalyst::Controller' }
+
+    __PACKAGE__->config(namespace => '');
+
+    sub example_form : Local {
+
+        my ( $self,$c ) = @_;
+
+        $c->stash(
+            template => 'example_form.html.tt',
+            result   => $c->req->params->{user_input},
+        );
+    }
+
+    sub end : ActionClass('RenderView') {}
+
+    __PACKAGE__->meta->make_immutable;
+
+    1;
+
+Then running the server:
+
+    perl examples/example_form/script/example_form_server.pl
+
+Again makes the page available at http://\*:3000/example\_form
 
 # Others
+
+The three (four) examples above are the "big three", currently very popular
+with great communities and support. There are other frameworks available:
 
 [https://metacpan.org/search?q=web+frameworks](https://metacpan.org/search?q=web+frameworks)
 
 # Dependency Handling
+
+This is a whole other topic, but given CGI.pm is no longer in the perl core
+you would have to install it anyway. It would be a good idea to do this the
+right way from beginning. I'm not going to this in detail here, there are
+many many good sources of information on the web. Here are some links to get
+you started:
+
+Managing perl:
+
+[https://github.com/tokuhirom/plenv](https://github.com/tokuhirom/plenv)
+
+[http://perlbrew.pl/](http://perlbrew.pl/)
+
+Managing perl modules:
+
+[https://metacpan.org/release/App-cpanminus](https://metacpan.org/release/App-cpanminus)
+
+[https://metacpan.org/release/Carton](https://metacpan.org/release/Carton)
+
+[https://metacpan.org/pod/Pinto](https://metacpan.org/pod/Pinto)
+
+[https://stratopan.com/](https://stratopan.com/)
+
+[https://metacpan.org/release/local-lib](https://metacpan.org/release/local-lib)
 
 # AUTHOR INFORMATION
 
 Lee Johnson - `leejo@cpan.org`
 
 This library is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself.
+the same terms as Perl itself. If you would like to contribute documentation
+please raise an issue / pull request:
 
-# SEE ALSO
+    https://github.com/leejo/cgi-alternatives
