@@ -4,7 +4,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 # VERSION
 
-0.04
+0.05
 
 # DESCRIPTION
 
@@ -391,7 +391,7 @@ That makes the page available at http://\*:3000/example\_form
 
 # Catalyst
 
-CPAN: [http://metacpan.org/release/Catalyst](http://metacpan.org/release/Catalyst)
+CPAN: [https://metacpan.org/release/Catalyst-Runtime](https://metacpan.org/release/Catalyst-Runtime)
 
 Repo: [git://git.shadowcat.co.uk/catagits/Catalyst-Runtime.git](git://git.shadowcat.co.uk/catagits/Catalyst-Runtime.git)
 
