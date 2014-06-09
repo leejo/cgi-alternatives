@@ -45,12 +45,20 @@ All of the following are functionally identical. They display a very simple
 form with one text input box. When the form is submit it is redisplayed with
 the original input displayed below the input box.
 
-All the examples are commented, however i do not explain the details of the
-frameworks - i would be duplicating the framework's docs if i did that, so
-have a look at the links provided and investigate further.
+This example may be trivial, but that is the point. The frameworks shown here
+feature a great deal of functionality for dealing with other parts of your
+application and dealing with that in a maintainable way, with full separation
+of concerns and easy testing.
+
+All the examples are commented, where i feel it is necessary to highlight the
+differences between the implemntations, however i do not explain the details
+of the frameworks - i would be duplicating the framework's docs if i did that,
+so have a look at the links provided and investigate further.
 
 All of the examples in this documentation can be found within the examples/
-directory within this distribution.
+directory within this distribution. If you want to run them you will need to
+install the necessary CPAN modules, these are not included as dependencies in
+this distribution.
 
 =head1 RAW CGI.pm EXAMPLES
 
@@ -116,7 +124,7 @@ A simple example with form using the html generation functions of CGI.pm
 
 I'm including this example to show that it is easy to move the html
 generation out of the raw CGI.pm script and into a template for better
-separation of concerns
+separation of concerns.
 
     #!/usr/bin/env perl
 
@@ -163,7 +171,7 @@ separation of concerns
 Here's a key point - this template file will be re-used by B<all> the following
 framework examples with absolutely no modifications. We can move between the
 frameworks without having to do any porting of the HTML because it has been
-divorced from the controller code
+divorced from the controller code. What did i say? Separation of concerns: win.
 
     <html>
         <meta charset="utf-8"> 
@@ -333,7 +341,9 @@ That makes the page available at http://*:3000/example_form
 
 This is a "full fat" version of the app in Mojolicious, as stated in the
 comments you would split the packages out into separate files in the real
-thing
+thing. Run using:
+
+    morbo examples/mojolicious.pl
 
 =head2 Mojolicious Lite App Wrapping The CGI.pm Script(s)
 
@@ -353,7 +363,9 @@ Mojolicious and then add new routes to the Mojolicious app - this gives us a
 migration path. There is one thing to consider - if you are serving your cgi
 scripts using a persistent webserver (e.g. mod_perl) then you will see a hit
 in the performance because Mojolicious::Plugin::CGI will exec the cgi script
-for each request.
+for each request. Run using:
+
+    morbo examples/mojolicious_lite_plugin_cgi.pl
 
 =head1 Dancer2
 
@@ -396,7 +408,7 @@ Home: L<http://www.catalystframework.org/>
 
 Catalyst is one of the older web frameworks in perl, but is still very popular,
 actively maintained, and feature rich. It has a heavier dependency list than
-the above example, but this should not be taken as a negative point.
+the above frameworks, but this should not be taken as a negative point.
 
 Catalyst is slightly more involved in that you have to set up your entire app
 as the first step, this involved running:
@@ -450,15 +462,38 @@ L<https://metacpan.org/search?q=web+frameworks>
 
 =head1 Dependency Handling
 
+This is a whole other topic, but given CGI.pm is no longer in the perl core
+you would have to install it anyway. It would be a good idea to do this the
+right way from beginning. I'm not going to this in detail here, there are
+many many good sources of information on the web. Here are some links to get
+you started:
 
+Managing perl:
+
+L<https://github.com/tokuhirom/plenv>
+
+L<http://perlbrew.pl/>
+
+Managing perl modules:
+
+L<https://metacpan.org/release/App-cpanminus>
+
+L<https://metacpan.org/release/Carton>
+
+L<https://metacpan.org/pod/Pinto>
+
+L<https://stratopan.com/>
+
+L<https://metacpan.org/release/local-lib>
 
 =head1 AUTHOR INFORMATION
 
 Lee Johnson - C<leejo@cpan.org>
 
 This library is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself.
+the same terms as Perl itself. If you would like to contribute documentation
+please raise an issue / pull request:
 
-=head1 SEE ALSO
+    https://github.com/leejo/cgi-alternatives
 
 =cut
