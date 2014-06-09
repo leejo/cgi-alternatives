@@ -3,7 +3,7 @@ package CGI::Alternatives;
 use strict;
 use warnings;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 1;
 
@@ -13,7 +13,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 =head1 VERSION
 
-0.04
+0.05
 
 =head1 DESCRIPTION
 
@@ -400,7 +400,7 @@ That makes the page available at http://*:3000/example_form
 
 =head1 Catalyst
 
-CPAN: L<http://metacpan.org/release/Catalyst>
+CPAN: L<https://metacpan.org/release/Catalyst-Runtime>
 
 Repo: L<git://git.shadowcat.co.uk/catagits/Catalyst-Runtime.git>
 
