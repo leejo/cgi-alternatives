@@ -1,5 +1,8 @@
 Revision history for CGI::Alternatives
 
+0.07 2014-06-09
+    - Remove unnecessary Catalyst files from examples
+
 0.06 2014-06-09
     - Add examples
 
