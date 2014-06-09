@@ -18,10 +18,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 =head1 DESCRIPTION
 
 This module doesn't do anything, it exists solely to document alternatives
-to the L<CGI>.pm module. This documentation is a work in progress, an example
-script will be shown in raw CGI.pm and then the equivalent implementation
-for each alternative will be shown. Resources to further information and
-documentation will also be included.
+to the L<CGI>.pm module.
 
 =head1 BUT WHY?
 
@@ -197,9 +194,9 @@ Please don't write your own template engine.
 
 =head1 PSGI/Plack
 
-L<http://metacpan.org/pod/PSGI>
+L<http://metacpan.org/release/PSGI>
 
-L<http://metacpan.org/pod/Plack>
+L<http://metacpan.org/release/Plack>
 
 L<http://plackperl.org/>
 
@@ -251,9 +248,11 @@ That makes the script (the "app") available at http://*:5000
 
 =head1 Mojolicious
 
-L<http://metacpan.org/pod/Mojolicious>
+CPAN: L<http://metacpan.org/release/Mojolicious>
 
-L<http://mojolicio.us/>
+Repo: L<http://github.com/kraih/mojo>
+
+Home: L<http://mojolicio.us/>
 
 Mojolicious is a feature rich modern web framework, with no none-core
 dependencies. It is incredibly easy to get a web app up and running with
@@ -357,19 +356,60 @@ scripts using a persistent webserver (e.g. mod_perl) then you will see a hit
 in the performance because Mojolicious::Plugin::CGI will exec the cgi script
 for each request.
 
-=head1 Dancer
+=head1 Dancer2
 
-L<http://metacpan.org/pod/Dancer>
+CPAN: L<https://metacpan.org/release/Dancer2>
+
+Repo: L<https://github.com/PerlDancer/Dancer2>
+
+Home: L<http://perldancer.org/>
+
+L<Dancer2> is a rewrite of L<Dancer>, they share a lot in common but
+i would recommend L<Dancer2> as it solved some issues with L<Dancer>
+
+    #!/usr/bin/env perl
+
+    # automatically enables strict and warnings
+    use Dancer2;
+     
+    any [ 'get','post' ] => '/example_form' => sub {
+
+        template 'example_form.html.tt', {
+            'result' => params->{'user_input'}
+        };
+    };
+     
+    start;
+
+Honestly that's just beautiful. The above example can be run with:
+
+    perl examples/dancer2.pl
+
+That makes the routes available at http://*:3000 - you don't need another
+weberver
 
 =head1 Catalyst
 
-L<http://metacpan.org/pod/Catalyst>
+CPAN: L<http://metacpan.org/release/Catalyst>
+
+Repo: L<git://git.shadowcat.co.uk/catagits/Catalyst-Runtime.git>
+
+Home: L<http://www.catalystframework.org/>
+
+Catalyst is one of the older web frameworks in perl, but is still very popular,
+actively maintained, and feature rich. It has a heavier dependency list than
+the above example, but this should not be taken as a negative point.
 
 =head1 Others
+
+The three (four) examples above are the "big three", currently very popular
+with great communities and support. There are other frameworks available:
 
 L<https://metacpan.org/search?q=web+frameworks>
 
 =head1 Dependency Handling
+
+
 
 =head1 AUTHOR INFORMATION
 
