@@ -285,8 +285,7 @@ To run this script (and all the following Mojolicious examples):
 
     morbo examples/mojolicious_lite.pl
 
-That makes the routes available at http://*:3000 - you don't need another
-weberver
+That makes the page available at http://*:3000/example_form
 
 =head2 Mojolicious Full App
 
@@ -385,8 +384,7 @@ Honestly that's just beautiful. The above example can be run with:
 
     perl examples/dancer2.pl
 
-That makes the routes available at http://*:3000 - you don't need another
-weberver
+That makes the page available at http://*:3000/example_form
 
 =head1 Catalyst
 
@@ -399,6 +397,49 @@ Home: L<http://www.catalystframework.org/>
 Catalyst is one of the older web frameworks in perl, but is still very popular,
 actively maintained, and feature rich. It has a heavier dependency list than
 the above example, but this should not be taken as a negative point.
+
+Catalyst is slightly more involved in that you have to set up your entire app
+as the first step, this involved running:
+
+    catalyst.pl example_form
+
+Which will create the various directories and scripts for building/running your
+app. You then need to add the necessary controllers, views, and templates. This
+has all been done automatically through the use of the helper scripts that come
+with Catalyst. The important bit, the actual example code, is just this in the
+examples/example_form/lib/example_form/Controller/Root.pm controller:
+
+    package example_form::Controller::Root;
+
+    # automatically enables strict and warnings
+    use Moose;
+    use namespace::autoclean;
+
+    BEGIN { extends 'Catalyst::Controller' }
+
+    __PACKAGE__->config(namespace => '');
+
+    sub example_form : Local {
+
+        my ( $self,$c ) = @_;
+
+        $c->stash(
+            template => 'example_form.html.tt',
+            result   => $c->req->params->{user_input},
+        );
+    }
+
+    sub end : ActionClass('RenderView') {}
+
+    __PACKAGE__->meta->make_immutable;
+
+    1;
+
+Then running the server:
+
+    perl examples/example_form/script/example_form_server.pl
+
+Again makes the page available at http://*:3000/example_form
 
 =head1 Others
 
