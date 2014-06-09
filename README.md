@@ -4,7 +4,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 # VERSION
 
-0.05
+0.06
 
 # DESCRIPTION
 
