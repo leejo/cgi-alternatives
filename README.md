@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/leejo/cgi-alternatives.svg?branch=master)](https://travis-ci.org/leejo/cgi-alternatives)
+
 # NAME
 
 CGI::Alternatives - Documentation for alternative solutions to CGI.pm
