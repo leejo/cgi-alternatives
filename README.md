@@ -4,7 +4,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 # VERSION
 
-0.08
+0.09
 
 # DESCRIPTION
 
@@ -67,7 +67,8 @@ magic. Don't mix the business logic and the presentation layer. Just don't.
 
 ## CGI.pm With Inline HTML Functions
 
-A simple example with form using the html generation functions of CGI.pm
+A simple example with form using the html generation functions of CGI.pm. Please
+don't use these functions, i am merely showing them here for comparison reasons.
 
     #!/usr/bin/env perl
 
