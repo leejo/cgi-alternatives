@@ -1,5 +1,8 @@
 Revision history for CGI::Alternatives
 
+0.09 2014-07-25
+    - Clarify HTML functions are show for comparison only
+
 0.08 2014-06-09
     - Update MANIFEST and Changes
 
