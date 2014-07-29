@@ -3,7 +3,7 @@ package CGI::Alternatives;
 use strict;
 use warnings;
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 1;
 
@@ -13,7 +13,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 =head1 VERSION
 
-0.09
+0.10
 
 =head1 DESCRIPTION
 
@@ -51,7 +51,7 @@ application and dealing with that in a maintainable way, with full separation
 of concerns and easy testing.
 
 All the examples are commented, where i feel it is necessary to highlight the
-differences between the implemntations, however i do not explain the details
+differences between the implementations, however i do not explain the details
 of the frameworks - i would be duplicating the framework's docs if i did that,
 so have a look at the links provided and investigate further.
 
@@ -486,6 +486,10 @@ L<https://metacpan.org/pod/Pinto>
 L<https://stratopan.com/>
 
 L<https://metacpan.org/release/local-lib>
+
+=head1 SEE ALSO
+
+L<Task::Kensho> - A Glimpse at an Enlightened Perl
 
 =head1 AUTHOR INFORMATION
 

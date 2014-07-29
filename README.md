@@ -1,12 +1,10 @@
-[![Build Status](https://travis-ci.org/leejo/cgi-alternatives.svg?branch=master)](https://travis-ci.org/leejo/cgi-alternatives)
-
 # NAME
 
 CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 # VERSION
 
-0.09
+0.10
 
 # DESCRIPTION
 
@@ -44,7 +42,7 @@ application and dealing with that in a maintainable way, with full separation
 of concerns and easy testing.
 
 All the examples are commented, where i feel it is necessary to highlight the
-differences between the implemntations, however i do not explain the details
+differences between the implementations, however i do not explain the details
 of the frameworks - i would be duplicating the framework's docs if i did that,
 so have a look at the links provided and investigate further.
 
@@ -479,6 +477,10 @@ Managing perl modules:
 [https://stratopan.com/](https://stratopan.com/)
 
 [https://metacpan.org/release/local-lib](https://metacpan.org/release/local-lib)
+
+# SEE ALSO
+
+[Task::Kensho](https://metacpan.org/pod/Task::Kensho) - A Glimpse at an Enlightened Perl
 
 # AUTHOR INFORMATION
 

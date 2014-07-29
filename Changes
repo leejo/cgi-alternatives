@@ -1,5 +1,8 @@
 Revision history for CGI::Alternatives
 
+0.10 2014-07-29
+    - Fix typo, add link to Task::Kensho
+
 0.09 2014-07-25
     - Clarify HTML functions are show for comparison only
 
