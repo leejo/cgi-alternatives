@@ -1,5 +1,8 @@
 Revision history for CGI::Alternatives
 
+0.11 2014-08-12
+    - Fix typo
+
 0.10 2014-07-29
     - Fix typo, add link to Task::Kensho
 

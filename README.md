@@ -72,7 +72,7 @@ don't use these functions, i am merely showing them here for comparison reasons.
 
     #!/usr/bin/env perl
 
-    # most CGI.pm scripts i encounter don't use script or warnings.
+    # most CGI.pm scripts i encounter don't use strict or warnings.
     # please don't omit these, you are asking for a world of pain
     # somewhere down the line if you choose to develop sans strict
     use strict;
@@ -120,7 +120,7 @@ separation of concerns.
 
     #!/usr/bin/env perl
 
-    # most CGI.pm scripts i encounter don't use script or warnings.
+    # most CGI.pm scripts i encounter don't use strict or warnings.
     # please don't omit these, you are asking for a world of pain
     # somewhere down the line if you choose to develop sans strict
     use strict;

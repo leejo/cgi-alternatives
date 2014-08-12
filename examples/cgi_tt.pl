@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-# most CGI.pm scripts i encounter don't use script or warnings.
+# most CGI.pm scripts i encounter don't use strict or warnings.
 # please don't omit these, you are asking for a world of pain
 # somewhere down the line if you choose to develop sans strict
 use strict;

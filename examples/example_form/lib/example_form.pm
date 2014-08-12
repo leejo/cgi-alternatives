@@ -24,8 +24,6 @@ use Catalyst qw/
 
 extends 'Catalyst';
 
-our $VERSION = '0.01';
-
 # Configure the application.
 #
 # Note that settings in example_form.conf (or other external
