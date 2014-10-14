@@ -2,9 +2,15 @@
 
 CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
+<div>
+
+    <a href='https://travis-ci.org/leejo/cgi-alternatives?branch=master'><img src='https://travis-ci.org/leejo/cgi-alternatives.svg?branch=master' alt='Build Status' /></a>
+    <a href='https://coveralls.io/r/leejo/cgi-alternatives?branch=master'><img src='https://coveralls.io/repos/leejo/cgi-alternatives/badge.png?branch=master' alt='Coverage Status' /></a>
+</div>
+
 # VERSION
 
-0.10
+0.12
 
 # DESCRIPTION
 
@@ -484,7 +490,7 @@ Managing perl modules:
 
 # AUTHOR INFORMATION
 
-Lee Johnson - `leejo@cpan.org`
+Lee Johnson - `leejo@cpan.org` (LEEJO)
 
 This library is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself. If you would like to contribute documentation
