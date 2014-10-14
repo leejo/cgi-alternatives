@@ -3,7 +3,7 @@ package CGI::Alternatives;
 use strict;
 use warnings;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 1;
 
@@ -11,9 +11,13 @@ our $VERSION = '0.11';
 
 CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
+=for html
+<a href='https://travis-ci.org/leejo/cgi-alternatives?branch=master'><img src='https://travis-ci.org/leejo/cgi-alternatives.svg?branch=master' alt='Build Status' /></a>
+<a href='https://coveralls.io/r/leejo/cgi-alternatives?branch=master'><img src='https://coveralls.io/repos/leejo/cgi-alternatives/badge.png?branch=master' alt='Coverage Status' /></a>
+
 =head1 VERSION
 
-0.11
+0.12
 
 =head1 DESCRIPTION
 
@@ -493,7 +497,7 @@ L<Task::Kensho> - A Glimpse at an Enlightened Perl
 
 =head1 AUTHOR INFORMATION
 
-Lee Johnson - C<leejo@cpan.org>
+Lee Johnson - C<leejo@cpan.org> (LEEJO)
 
 This library is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself. If you would like to contribute documentation
