@@ -3,7 +3,7 @@ package CGI::Alternatives;
 use strict;
 use warnings;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 1;
 
@@ -17,7 +17,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 =head1 VERSION
 
-0.12
+0.13
 
 =head1 DESCRIPTION
 
@@ -33,7 +33,7 @@ use of CGI.pm for web development and prototyping. The two main arguments
 for the use of CGI.pm, often given by those developers, are no longer true:
 
 1) "CGI.pm is a core module so you don't have install anything extra." This
-is now incorrect:
+is now incorrect as perl 5.22 has been released and no longer ships with it:
 
     http://perl5.git.perl.org/perl.git/commitdiff/e9fa5a80
 
@@ -203,7 +203,9 @@ script is called (cgi.pl and cgi_tt.pl in the examples/ directory)
 
 Note that I have used L<Template::Toolkit> here, another excellent template
 engine is L<Text::Xslate>. I would B<avoid> L<Mason>(2) and L<HTML::Template>.
-Please don't write your own template engine.
+Please don't write your own template engine. If you want to completely split
+out your html and still have some sort of templating system there are modules
+to do that, such as L<HTML::Zoom>.
 
 =head1 PSGI/Plack
 

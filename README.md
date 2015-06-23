@@ -10,7 +10,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 # VERSION
 
-0.12
+0.13
 
 # DESCRIPTION
 
@@ -26,7 +26,7 @@ use of CGI.pm for web development and prototyping. The two main arguments
 for the use of CGI.pm, often given by those developers, are no longer true:
 
 1) "CGI.pm is a core module so you don't have install anything extra." This
-is now incorrect:
+is now incorrect as perl 5.22 has been released and no longer ships with it:
 
     http://perl5.git.perl.org/perl.git/commitdiff/e9fa5a80
 
@@ -196,7 +196,9 @@ script is called (cgi.pl and cgi\_tt.pl in the examples/ directory)
 
 Note that I have used [Template::Toolkit](https://metacpan.org/pod/Template::Toolkit) here, another excellent template
 engine is [Text::Xslate](https://metacpan.org/pod/Text::Xslate). I would **avoid** [Mason](https://metacpan.org/pod/Mason)(2) and [HTML::Template](https://metacpan.org/pod/HTML::Template).
-Please don't write your own template engine.
+Please don't write your own template engine. If you want to completely split
+out your html and still have some sort of templating system there are modules
+to do that, such as [HTML::Zoom](https://metacpan.org/pod/HTML::Zoom).
 
 # PSGI/Plack
 

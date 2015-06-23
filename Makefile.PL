@@ -11,6 +11,7 @@ WriteMakefile(
   VERSION_FROM  => 'lib/CGI/Alternatives.pm',
   AUTHOR        => 'Lee Johnson <leejo@cpan.org>',
   LICENSE       => 'perl',
+  MIN_PERL_VERSION => '5.6.2',
   PREREQ_PM => {
   },
   BUILD_REQUIRES => {
