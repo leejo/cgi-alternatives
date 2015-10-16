@@ -10,7 +10,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 # VERSION
 
-0.13
+0.14
 
 # DESCRIPTION
 
@@ -117,6 +117,12 @@ don't use these functions, i am merely showing them here for comparison reasons.
     $out .= $cgi->end_html;
 
     print $out;
+
+If you really want to continue using the HTML generation functionality of CGI.pm
+then you should take a look at [HTML::Tiny](https://metacpan.org/pod/HTML::Tiny) instead, which may give you a migration
+path away from CGI.pm's html generation functions; i strongly encourage you to
+move towards template driven page generation for anything involving markup as
+it will make porting your app to other frameworks much easier in the long run.
 
 ## CGI.pm Using Template Toolkit
 
