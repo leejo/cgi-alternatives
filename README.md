@@ -268,7 +268,7 @@ Repo: [http://github.com/kraih/mojo](http://github.com/kraih/mojo)
 
 Home: [http://mojolicio.us/](http://mojolicio.us/)
 
-Mojolicious is a feature rich modern web framework, with no none-core
+Mojolicious is a feature rich modern web framework, with no non-core
 dependencies. It is incredibly easy to get a web app up and running with
 Mojolicious.
 
