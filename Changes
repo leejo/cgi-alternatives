@@ -1,5 +1,8 @@
 Revision history for CGI::Alternatives
 
+0.15 2016-10-13
+    - Fix typos (thanks to davorg)
+
 0.14 2015-10-16
     - mention HTML::Tiny as an alternative to CGI.pm's HTML
       generation functions (thanks to osfameron for the suggestion)
