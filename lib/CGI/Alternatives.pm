@@ -3,7 +3,7 @@ package CGI::Alternatives;
 use strict;
 use warnings;
 
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 1;
 
@@ -17,7 +17,7 @@ CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
 =head1 VERSION
 
-0.16
+0.17
 
 =head1 DESCRIPTION
 
@@ -431,7 +431,7 @@ adapters to web servers.
 Plack is a collection of building blocks to create web applications, ranging from
 quick & easy scripts, to the foundations of building larger frameworks.
 
-=head2 Plack As A Peristant Process
+=head2 Plack As A Persistent Process
 
     #!/usr/bin/env perl
 
@@ -474,7 +474,7 @@ That makes the script (the "app") available at http://*:5000
 
 =head2 Plack As A Run On Demand CGI Script
 
-If your CGI script only runs once in a while, and doesn't need to be persistant,
+If your CGI script only runs once in a while, and doesn't need to be persistent,
 then you can use Plack the same way and not have to worry about deployment
 concerns such has having to restart a process. To do so requires adding:
 
