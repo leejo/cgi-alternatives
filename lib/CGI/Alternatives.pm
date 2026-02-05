@@ -3,7 +3,7 @@ package CGI::Alternatives;
 use strict;
 use warnings;
 
-our $VERSION = '0.19';
+our $VERSION = '0.20';
 
 1;
 
@@ -11,13 +11,9 @@ our $VERSION = '0.19';
 
 CGI::Alternatives - Documentation for alternative solutions to CGI.pm
 
-=for html
-<a href='https://travis-ci.org/leejo/cgi-alternatives?branch=master'><img src='https://travis-ci.org/leejo/cgi-alternatives.svg?branch=master' alt='Build Status' /></a>
-<a href='https://coveralls.io/r/leejo/cgi-alternatives?branch=master'><img src='https://coveralls.io/repos/leejo/cgi-alternatives/badge.png?branch=master' alt='Coverage Status' /></a>
-
 =head1 VERSION
 
-0.19
+0.20
 
 =head1 DESCRIPTION
 
@@ -32,8 +28,8 @@ Despite this there are still some perl developers that will recommend the
 use of CGI.pm for web development and prototyping. The two main arguments
 for the use of CGI.pm, often given by those developers, are no longer true:
 
-1) "CGI.pm is a core module so you don't have install anything extra." This
-is now incorrect as perl 5.22 has been released and no longer ships with it:
+1) "CGI.pm is a core module so you don't have to install anything extra." This
+has been incorrect since 2014 when perl 5.22 was released and no longer ships with it:
 
     http://perl5.git.perl.org/perl.git/commitdiff/e9fa5a80
 
@@ -91,7 +87,7 @@ don't use these functions, i am merely showing them here for comparison reasons.
     use strict;
     use warnings;
 
-    use CGI qw/ -utf8 /; 
+    use CGI qw/ -utf8 /;
 
     my $cgi  = CGI->new;
     my $res  = $cgi->param( 'user_input' );
@@ -147,7 +143,7 @@ separation of concerns.
 
     use FindBin qw/ $Script $Bin /;
     use Template;
-    use CGI qw/ -utf8 /; 
+    use CGI qw/ -utf8 /;
 
     # necessary objects
     my $cgi = CGI->new;
@@ -185,7 +181,7 @@ frameworks without having to do any porting of the HTML because it has been
 divorced from the controller code. What did i say? Separation of concerns: win.
 
     <html>
-        <meta charset="utf-8"> 
+        <meta charset="utf-8">
         <head>An Example Form</head>
         <body>
             <form action="/example_form" method="post">
@@ -213,17 +209,23 @@ Please don't write your own template engine. If you want to completely split
 out your html and still have some sort of templating system there are modules
 to do that, such as L<HTML::Zoom>.
 
+=head1 MODERN WEB FRAMEWORKS
+
 =head1 Mojolicious
 
-CPAN: L<http://metacpan.org/release/Mojolicious>
+CPAN: L<https://metacpan.org/release/Mojolicious>
 
-Repo: L<http://github.com/kraih/mojo>
+Repo: L<https://github.com/mojolicious/mojo>
 
-Home: L<http://mojolicio.us/>
+Home: L<https://mojolicious.org/>
 
-Mojolicious is a feature rich modern web framework, with no non-core
+Mojolicious is a feature-rich modern real-time web framework, with no non-core
 dependencies. It is incredibly easy to get a web app up and running with
-Mojolicious.
+Mojolicious. As of 2025, Mojolicious continues to be actively maintained and
+is one of the most popular Perl web frameworks.
+
+Key features include: built-in non-blocking I/O web server, WebSocket support,
+JSON support, RESTful routes, plugins, testing framework, and more.
 
 =head2 Mojolicious Lite App
 
@@ -232,17 +234,16 @@ uses its own .ep format
 
     #!/usr/bin/env perl
 
-    # automatically enables "strict", "warnings", "utf8" and perl 5.10 features
-    use Mojolicious::Lite;
+    # automatically enables "strict", "warnings", "utf8" and perl 5.16 features
+    use Mojolicious::Lite -signatures;
     use Mojolicious::Plugin::TtRenderer;
 
     # automatically render *.html.tt templates
     plugin 'tt_renderer';
 
-    any '/example_form' => sub {
-        my ( $self ) = @_;
-        $self->stash(
-            result => $self->param( 'user_input' )
+    any '/example_form' => sub ($c) {
+        $c->stash(
+            result => $c->param( 'user_input' )
         );
     };
 
@@ -254,6 +255,10 @@ To run this script (and all the following Mojolicious examples):
 
 That makes the page available at http://*:3000/example_form
 
+For production deployment, use:
+
+    hypnotoad examples/mojolicious_lite.pl
+
 =head2 Mojolicious Full App
 
     #!/usr/bin/env perl
@@ -261,12 +266,10 @@ That makes the page available at http://*:3000/example_form
     # in reality this would be in a separate file
     package ExampleApp;
 
-    # automatically enables "strict", "warnings", "utf8" and perl 5.10 features
-    use Mojo::Base qw( Mojolicious );
+    # automatically enables "strict", "warnings", "utf8" and perl 5.16 features
+    use Mojo::Base 'Mojolicious', -signatures;
 
-    sub startup {
-        my ( $self ) = @_;
-
+    sub startup ($self) {
         $self->plugin( 'tt_renderer' );
 
         $self->routes->any('/example_form')
@@ -276,11 +279,9 @@ That makes the page available at http://*:3000/example_form
     # in reality this would be in a separate file
     package ExampleApp::ExampleController;
 
-    use Mojo::Base 'Mojolicious::Controller';
+    use Mojo::Base 'Mojolicious::Controller', -signatures;
 
-    sub example_form {
-        my ( $self ) = @_;
-
+    sub example_form ($self) {
         $self->stash(
             result => $self->param( 'user_input' )
         );
@@ -308,7 +309,7 @@ thing. Run using:
 
     #!/usr/bin/env perl
 
-    # automatically enables "strict", "warnings", "utf8" and Perl 5.10 features
+    # automatically enables "strict", "warnings", "utf8" and Perl 5.16 features
     use Mojolicious::Lite;
     use Mojolicious::Plugin::CGI;
     use FindBin qw/$Bin/;
@@ -332,23 +333,28 @@ CPAN: L<https://metacpan.org/release/Dancer2>
 
 Repo: L<https://github.com/PerlDancer/Dancer2>
 
-Home: L<http://perldancer.org/>
+Home: L<https://perldancer.org/>
 
-L<Dancer2> is a rewrite of L<Dancer>, they share a lot in common but
-i would recommend L<Dancer2> as it solved some issues with L<Dancer>
+L<Dancer2> is a complete rewrite of L<Dancer> with a more robust architecture.
+Use L<Dancer2> rather than the original L<Dancer>, as Dancer2 solved many
+architectural issues and is actively maintained. Dancer2 is known for its
+simplicity and elegant syntax, making it perfect for small to medium applications.
+
+Key features include: simple DSL, plugin system, session management, template
+support, deployment flexibility via PSGI.
 
     #!/usr/bin/env perl
 
     # automatically enables strict and warnings
     use Dancer2;
-     
+
     any [ 'get','post' ] => '/example_form' => sub {
 
         template 'example_form.html.tt', {
             'result' => params->{'user_input'}
         };
     };
-     
+
     start;
 
 Honestly that's just beautiful. The above example can be run with:
@@ -357,17 +363,23 @@ Honestly that's just beautiful. The above example can be run with:
 
 That makes the page available at http://*:3000/example_form
 
+For production deployment with a proper PSGI server:
+
+    plackup -s Starman bin/app.psgi
+
 =head1 Catalyst
 
 CPAN: L<https://metacpan.org/release/Catalyst-Runtime>
 
-Repo: L<git://git.shadowcat.co.uk/catagits/Catalyst-Runtime.git>
+Repo: L<https://github.com/perl-catalyst/catalyst-runtime>
 
-Home: L<http://www.catalystframework.org/>
+Home: L<https://www.catalystframework.org/>
 
-Catalyst is one of the older web frameworks in perl, but is still very popular,
-actively maintained, and feature rich. It has a heavier dependency list than
+Catalyst is one of the older web frameworks in perl, but is still actively
+maintained and feature rich. It has a heavier dependency list than
 the above frameworks, but this should not be taken as a negative point.
+Catalyst is best suited for large, complex applications where you need
+maximum flexibility and power.
 
 Catalyst is slightly more involved in that you have to set up your entire app
 as the first step, this involved running:
@@ -418,18 +430,19 @@ Raw Plack is lower-level than Mojolicious so the code will be more verbose,
 but Plack is probably a closer match to CGI.pm in terms of the things you're
 having to handle.
 
-L<http://metacpan.org/release/PSGI>
+PSGI: L<https://metacpan.org/release/PSGI>
 
-L<http://metacpan.org/release/Plack>
+Plack: L<https://metacpan.org/release/Plack>
 
-L<http://plackperl.org/>
+Home: L<https://plackperl.org/>
 
 PSGI is an interface between Perl web applications and web servers, and Plack
 is a Perl module and toolkit that contains PSGI middleware, helpers and
 adapters to web servers.
 
 Plack is a collection of building blocks to create web applications, ranging from
-quick & easy scripts, to the foundations of building larger frameworks.
+quick & easy scripts, to the foundations of building larger frameworks. All modern
+Perl web frameworks (Mojolicious, Dancer2, Catalyst) are built on PSGI/Plack.
 
 =head2 Plack As A Persistent Process
 
@@ -473,6 +486,10 @@ To run this script:
 
 That makes the script (the "app") available at http://*:5000
 
+For production, use a production-ready PSGI server like Starman:
+
+    plackup -s Starman --workers=10 examples/plack_psgi.pl
+
 =head2 Plack As A Run On Demand CGI Script
 
 If your CGI script only runs once in a while, and doesn't need to be persistent,
@@ -485,46 +502,224 @@ concerns such has having to restart a process. To do so requires adding:
 to the end of the script. This will allow it to be exec'd correctly by the
 upfront webserver and to behave like a standalone CGI script
 
-=head1 Others
+=head1 LIGHTWEIGHT ALTERNATIVES
 
-The three (four) examples above are the "big three", currently very popular
-with great communities and support. There are other frameworks available:
+If you don't want to use a full framework but still want something better than
+CGI.pm, here are some lightweight options:
 
-L<https://metacpan.org/search?q=web+frameworks>
+=head2 CGI::Tiny
 
-=head1 Dependency Handling
+CPAN: L<https://metacpan.org/pod/CGI::Tiny>
+
+Repo: L<https://github.com/Grinnz/CGI-Tiny>
+
+CGI::Tiny is a modern, minimal CGI library that provides a clean interface for
+handling CGI requests without the bloat and issues of CGI.pm. It's designed
+specifically for actual CGI deployment scenarios (like shared hosting) where
+you can't use persistent frameworks.
+
+    #!/usr/bin/env perl
+    use strict;
+    use warnings;
+    use CGI::Tiny;
+
+    cgi {
+        my $cgi = $_;
+        my $input = $cgi->param('user_input');
+
+        $cgi->render(html => qq{
+            <html>
+            <body>
+                <form method="post">
+                    <input name="user_input" type="text" />
+                    <input type="submit" />
+                </form>
+                } . ($input ? "<p>You wrote: $input</p>" : '') . q{
+            </body>
+            </html>
+        });
+    };
+
+For more information: L<https://blogs.perl.org/users/grinnz/2025/02/cgitiny---perl-cgi-but-modern.html>
+
+=head1 MODERN DEPLOYMENT PRACTICES
+
+=head2 PSGI Servers
+
+All modern Perl web frameworks support PSGI. Here are the recommended PSGI
+servers for production:
+
+=over 4
+
+=item * L<Starman> - High-performance preforking PSGI server (recommended for most uses)
+
+=item * L<Gazelle> - Preforking Plack handler for performance freaks
+
+=item * L<Twiggy> - AnyEvent-based PSGI server for real-time applications
+
+=back
+
+Example production deployment with Starman:
+
+    plackup -s Starman \
+        --workers=10 \
+        --port=5000 \
+        --daemonize \
+        --pid=/var/run/myapp.pid \
+        bin/app.psgi
+
+=head2 Reverse Proxy
+
+In production, run your PSGI app behind a reverse proxy like nginx or Apache:
+
+nginx example:
+
+    upstream myapp {
+        server 127.0.0.1:5000;
+    }
+
+    server {
+        listen 80;
+        server_name myapp.example.com;
+
+        location / {
+            proxy_pass http://myapp;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
+
+=head1 Dependency Management
 
 This is a whole other topic, but given CGI.pm is no longer in the perl core
 you would have to install it anyway. It would be a good idea to do this the
-right way from beginning. I'm not going to this in detail here, there are
+right way from beginning. I'm not going to cover this in detail here, there are
 many many good sources of information on the web. Here are some links to get
 you started:
 
-Managing perl:
+=head2 Managing Perl Versions
 
-L<https://github.com/tokuhirom/plenv>
+=over 4
 
-L<http://perlbrew.pl/>
+=item * L<https://github.com/tokuhirom/plenv> - plenv: Perl binary manager
 
-Managing perl modules:
+=item * L<https://perlbrew.pl/> - perlbrew: Manage multiple perl installations
 
-L<https://metacpan.org/release/App-cpanminus>
+=back
 
-L<https://metacpan.org/release/Carton>
+=head2 Managing Perl Modules
 
-L<https://metacpan.org/pod/Pinto>
+=over 4
 
-L<https://stratopan.com/>
+=item * L<https://metacpan.org/release/App-cpanminus> - cpanm: Fast, lightweight CPAN client
 
-L<https://metacpan.org/release/local-lib>
+=item * L<https://metacpan.org/release/App-cpm> - cpm: Fast, parallel CPAN module installer (3x faster than cpanm)
 
-=head1 BUT I DON'T WANT TO USE A FRAMEWORK
+=item * L<https://metacpan.org/release/Carton> - Carton: Perl module dependency manager (like bundler for Ruby)
 
-Then take a look at L<CGI::Tiny>, specifically L<https://metacpan.org/pod/CGI::Tiny#COMPARISON-TO-CGI.PM>
+=item * L<https://metacpan.org/release/local-lib> - local::lib: Use a local lib/ directory for modules
+
+=back
+
+Modern approach using cpanfile and cpm:
+
+Create a cpanfile:
+
+    requires 'Dancer2', '0.400000';
+    requires 'Template', '2.26';
+    requires 'Starman', '0.4015';
+
+Install dependencies:
+
+    # Fast parallel installation
+    cpm install
+
+    # Or with cpanm
+    cpanm --installdeps .
+
+Lock dependencies with Carton:
+
+    carton install
+    carton exec plackup bin/app.psgi
+
+=head1 TESTING
+
+One major advantage of modern frameworks is testability. All the frameworks
+mentioned support easy testing:
+
+    use Test::More;
+    use Plack::Test;
+    use HTTP::Request::Common;
+
+    my $app = MyApp->to_app;
+
+    test_psgi $app, sub {
+        my $cb = shift;
+        my $res = $cb->(GET "/example_form");
+        is $res->code, 200;
+        like $res->content, qr/Say something/;
+    };
+
+    done_testing;
+
+=head1 MIGRATION STRATEGIES
+
+=head2 Gradual Migration
+
+You don't have to migrate everything at once:
+
+=over 4
+
+=item 1. Start by wrapping your CGI scripts with Mojolicious::Plugin::CGI
+
+=item 2. Add new features using the framework's native routing
+
+=item 3. Gradually port old scripts to framework controllers
+
+=item 4. Extract common code into libraries
+
+=back
+
+=head2 Quick Wins
+
+Start with these easy improvements:
+
+=over 4
+
+=item * Move to PSGI for deployment flexibility
+
+=item * Separate HTML into templates
+
+=item * Use a proper PSGI server instead of CGI
+
+=item * Add proper logging with L<Log::Log4perl> or L<Log::Dispatch>
+
+=item * Write tests for your routes
+
+=back
+
+=head1 ADDITIONAL RESOURCES
+
+=over 4
+
+=item * L<Task::Kensho> - A Glimpse at an Enlightened Perl
+
+=item * L<https://perlmaven.com/> - Perl Maven tutorials
+
+=item * L<https://www.perl.com/> - Perl.com articles
+
+=item * L<https://blogs.perl.org/> - Perl community blogs
+
+=back
 
 =head1 SEE ALSO
 
 L<Task::Kensho> - A Glimpse at an Enlightened Perl
+
+L<PSGI> - Perl Web Server Gateway Interface Specification
+
+L<Plack> - PSGI toolkit and servers
 
 =head1 AUTHOR INFORMATION
 

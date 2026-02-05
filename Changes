@@ -1,5 +1,8 @@
 Revision history for CGI::Alternatives
 
+0.20 2026-02-05
+    - Bring this a little up to date, specifically examples, links, and resources
+
 0.19 2021-12-02
     - Add CGI::Tiny
 

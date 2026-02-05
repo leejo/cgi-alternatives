@@ -3,12 +3,10 @@
 # in reality this would be in a separate file
 package ExampleApp;
 
-# automatically enables "strict", "warnings", "utf8" and perl 5.10 features
-use Mojo::Base qw( Mojolicious );
+# automatically enables "strict", "warnings", "utf8" and perl 5.16 features
+use Mojo::Base 'Mojolicious', -signatures;
 
-sub startup {
-    my ( $self ) = @_;
-
+sub startup ($self) {
     $self->plugin( 'tt_renderer' );
 
     $self->routes->any('/example_form')
@@ -18,11 +16,9 @@ sub startup {
 # in reality this would be in a separate file
 package ExampleApp::ExampleController;
 
-use Mojo::Base 'Mojolicious::Controller';
+use Mojo::Base 'Mojolicious::Controller', -signatures;
 
-sub example_form {
-    my ( $self ) = @_;
-
+sub example_form ($self) {
     $self->stash(
         result => $self->param( 'user_input' )
     );

@@ -1,8 +1,6 @@
 <html>
-    <meta charset="utf-8"> 
-    <head>
-        <title>An Example Form</title>
-    </head>
+    <meta charset="utf-8">
+    <head>An Example Form</head>
     <body>
         <form action="/example_form" method="post">
             <p>
@@ -14,6 +12,6 @@
             <br />
             <input type="submit" />
             </p>
-        </from>
+        </form>
     </body>
 </html>

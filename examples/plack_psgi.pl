@@ -27,6 +27,7 @@ my $app = sub {
         \$out,
     ) or die $tt->error;
 
+    $res->headers([ 'Content-Type' => 'text/html' ]);
     $res->body( $out );
     $res->finalize;
 };
